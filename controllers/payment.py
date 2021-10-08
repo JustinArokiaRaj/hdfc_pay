@@ -1,5 +1,5 @@
-from odoo import http
 from odoo.http import request
+from odoo import http
 import hashlib
 from Crypto.Cipher import AES
 import logging
@@ -49,6 +49,8 @@ class HDFCPaymentController(http.Controller):
                     val = {"acquirer_id": acquirer_id.id,
                            "amount":0,
                            "partner_id":partner_id.id,
+                           
+                           
                            'partner_name':partner_id.name,
                            "partner_lang": partner_id.lang,
                            "partner_email": partner_id.email,

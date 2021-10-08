@@ -1,13 +1,17 @@
 {
     'name' : 'HDFC Payment Gateway',
-    'version' : '1.1',
-    'summary': '',
+    'version' : '14.0.1.0.0',
+    'summary': 'It helps to Integrate your ecommerce with HDFC Payment Gateway',
     'sequence': -1,
     'description': """
     """,
-    'category': '',
+    'category': 'Payment Gateway',
     'website': 'https://agaramsoft.com/',
-    'images' : [],
+    'images' : 'static/description/icon.png',
+    'live_test_url':'',
+    'license': 'AGPL-3',
+    'price': 1.00,
+    'currency': 'USD',
     'depends' : ['base','website_sale', 'payment'],
     'data': [
         'views/payment_acquirer_view.xml',
@@ -21,6 +25,6 @@
     'qweb': [
     ],
     'installable': True,
-    'application': False,
+    'application': True,
     'auto_install': False,
 }
