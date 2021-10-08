@@ -13,7 +13,7 @@
         'views/payment_acquirer_view.xml',
         'views/template.xml',
         'views/hdfc_payment_template.xml',
-        'views/assets.xml',
+        # 'views/assets.xml',
         'data/hdfc.xml',
     ],
     'demo': [

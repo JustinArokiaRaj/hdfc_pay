@@ -33,8 +33,6 @@ class HDFCPaymentController(http.Controller):
     @http.route(['/payment/return', '/payment/cancel'], type='http', auth='public', csrf=False,
                 website=True)
     def payment_return(self, **post):
-        status = ''
-        print(post)
         acquirer = request.env['payment.acquirer'].sudo().search([('provider', '=', 'hdfc')], limit=1)
         working_key = acquirer.working_key
         if post.get('encResp'):
@@ -42,20 +40,15 @@ class HDFCPaymentController(http.Controller):
             decrypted_text = self.decrypt_val(data, working_key)
             string_value = str(decrypted_text)
             result_obj = {x.split('=')[0]: x.split('=')[1] for x in string_value.split("&")}
-            to_order_id = result_obj.get("order_id")
             acquirer_id = request.env['payment.acquirer'].sudo().search([('id', '=', int(result_obj.get("merchant_param1") if result_obj.get("merchant_param1") else False))])
             partner_id = request.env['res.partner'].sudo().search([('id', '=', int(result_obj.get("merchant_param2") if result_obj.get("merchant_param2") else False))])
             record = request.env['payment.transaction'].sudo().search([])
             if (result_obj != 'undefined') and isinstance(result_obj,dict):
                 if result_obj.get("order_status") == 'Success':
-                    status = 'Success'
-                    reason = 'Transaction Success'
                     
                     val = {"acquirer_id": acquirer_id.id,
                            "amount":0,
                            "partner_id":partner_id.id,
-                           
-                           
                            'partner_name':partner_id.name,
                            "partner_lang": partner_id.lang,
                            "partner_email": partner_id.email,
@@ -75,8 +68,6 @@ class HDFCPaymentController(http.Controller):
                            }
                     transaction_id = record.sudo().create(val)
                 else:
-                    status = 'Failure'
-                    reason = result_obj.get("order_status")
                     val = {
                             "acquirer_id": acquirer_id.id,
                            "amount":0,
