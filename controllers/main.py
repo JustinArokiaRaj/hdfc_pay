@@ -71,8 +71,6 @@ class HDFCPaymentController(http.Controller):
             'billing_country': post.get('billing_partner_country_id'),
             'billing_tel': 'Test',
             'billing_email': post.get('partner_email'),
-
-            #                     Shipping information(optional):
             'delivery_name': post.get('partner_name'),
             'delivery_address': post.get('billing_partner_address'),
             'delivery_city':  post.get('billing_partner_city'),
