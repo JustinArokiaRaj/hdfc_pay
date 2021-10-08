@@ -35,7 +35,7 @@ class HDFCPaymentController(http.Controller):
         currency = request.env['res.currency'].sudo().browse(eval(post.get('currency_id')))
         partner_id = request.env['res.partner'].sudo().search([('id', '=', int(post.get('billing_partner_id')))])
         print(partner_id)
-        sale_order_id = request.env['sale.order'].sudo().search([('name', '=', post.get("reference").split('-')[0])])
+        sale_order_id = request.env['sale.order'].sudo().search([('name', '=', post.get("reference"))])
         print(sale_order_id)
         # if currency not in ['CAD', 'GBP', 'USD']:
         #     return request.redirect('/shop/cart')
@@ -71,8 +71,6 @@ class HDFCPaymentController(http.Controller):
             'billing_country': post.get('billing_partner_country_id'),
             'billing_tel': 'Test',
             'billing_email': post.get('partner_email'),
-
-            #                     Shipping information(optional):
             'delivery_name': post.get('partner_name'),
             'delivery_address': post.get('billing_partner_address'),
             'delivery_city':  post.get('billing_partner_city'),
